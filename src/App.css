@@ -91,3 +91,35 @@ body {
   width: 320px;
   height: 240px;
 }
+
+#login-btn {
+  margin-bottom: 3rem;
+  background-color: rgb(17, 109, 50);
+  font-size: 14px;
+  line-height: 1;
+  border-radius: 500px;
+  padding: 16px 48px 18px;
+  transition-property: background-color,border-color,color,box-shadow,filter;
+  transition-duration: .3s;
+  border-width: 0;
+  letter-spacing: 2px;
+  min-width: 160px;
+  text-transform: uppercase;
+  white-space: normal;
+  font-weight: 700;
+  text-align: center;
+  cursor: pointer;
+  overflow: visible;
+  color: rgb(232, 230, 227);
+}
+
+#login-btn:hover {
+
+  background-color: rgb(23, 148, 67);
+}
+
+#login-btn[disabled] {
+  background-color: white;
+  color: black;
+  cursor: default;
+}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import $ from 'jquery';
 
 import logo from './logo.svg';
@@ -9,10 +9,40 @@ import * as fp from 'fingerpose/dist/fingerpose';
 
 
 function App() {
+
+  //authentication
+  const [id, setId] = useState(0);
+  const [isAuth, setIsAuth] = useState(false);
+
+  const [volUp, setVolUp] = useState('');
+  const [volDown, setVolDown] = useState('');
+  const [next, setNext] = useState('');
+  const [prev, setPrev] = useState('');
+  const [pause, setPause] = useState('');
+
+  const getId = () => {
+    if (!isAuth) {
+      $.get({url: 'http://34.72.9.221/get_id.php',
+        success: res => {
+          setId(res.id);
+        }, error: () => console.log('failed to retrieve an id')});
+    }
+  }
+
+  const checkAuth = () => {
+    $.get({url: 'http://34.72.9.221/check_token.php?id=' + id,
+      success: res => {
+        if (!res.is_set) checkAuth();
+        else setIsAuth(true);
+      }, error: () => console.log('failed to check if token set.')});
+  }
+
+
+
+  // const authenticate =
   /* ------ NEW GESTURES (start) */
 
   	// Flat palm
-
   	const flatPalmGesture = new fp.GestureDescription('flat_palm');
 
     flatPalmGesture.addCurl(fp.Finger.Thumb, fp.FingerCurl.NoCurl, 1.0);
@@ -132,7 +162,7 @@ function App() {
       'point_left': 'Prev track',
       'point_right': 'Next track'
     };
-    const [currGesture, setCurrGesture] = React.useState("");
+    const [currGesture, setCurrGesture] = useState("");
     const gestureImgs = {
       'point_up': 'https://cdn.shopify.com/s/files/1/1061/1924/products/Up_Pointing_Backhand_Index_Emoji_Icon_ios10_large.png',
       'point_down': 'https://cdn.shopify.com/s/files/1/1061/1924/products/Down_Pointing_Backhand_Index_Emoji_Icon_ios10_large.png',
@@ -141,13 +171,8 @@ function App() {
       'flat_palm': 'https://cdn.shopify.com/s/files/1/1061/1924/products/Raised_Back_Of_Hand_Emoji_Icon_ios10_large.png'
     }
 
-    const spotifyCalls = {
-      'point_up': 'http://34.72.9.221/volume_up.php?id=1001',
-      'point_down': 'http://34.72.9.221/volume_down.php?id=1001',
-      'point_left': 'http://34.72.9.221/previous.php?id=1001',
-      'point_right': 'http://34.72.9.221/next.php?id=1001',
-      'flat_palm': 'http://34.72.9.221/pause.php?id=1001'
-    }
+    // console.log(spotifyCalls);
+
     //
     async function main() {
 
@@ -204,7 +229,14 @@ function App() {
             });
 
             setCurrGesture(gestureImgs[result.name]);
-            $.get({url: spotifyCalls[result.name]});
+            const spotifyCalls = {
+              'point_up': volUp,
+              'point_down': volDown,
+              'point_left': prev,
+              'point_right': next,
+              'flat_palm': pause
+            }
+            if (spotifyCalls) $.get({url: spotifyCalls[result.name]});
           }
         }
 
@@ -265,9 +297,24 @@ function App() {
       canvas.height = config.video.height;
       console.log("Canvas initialized");
     });
+
+    // sign into spotify
+    useEffect(() => {
+      if (id) {
+        window.open('http://34.72.9.221/auth.php?id=' + id, '_blank');
+        checkAuth();
+
+        setVolUp('http://34.72.9.221/volume_up.php?id=' + id);
+        setVolDown('http://34.72.9.221/volume_down.php?id=' + id);
+        setPrev('http://34.72.9.221/previous.php?id=' + id);
+        setNext('http://34.72.9.221/next.php?id=' + id);
+        setPause('http://34.72.9.221/pause.php?id=' + id);
+      }
+    }, [id]);
   return (
     <div className="App">
       <header className="App-header">
+      <button id="login-btn" onClick={() => getId()} disabled={isAuth ? true : false} >{isAuth ? 'connected' : 'log in'}</button>
       <div id="video-container">
         <video id="pose-video" class="layer" playsinline></video>
         <canvas id="pose-canvas" class="layer"></canvas>
