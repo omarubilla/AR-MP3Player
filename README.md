@@ -8,3 +8,8 @@ Our goal is to recognize hand gestures in order to navigate our mp3 player!
 4. Display open palm gesture to actuate the hand pose model.
 5. Show a sideways 'thumb's up' gesture to play the song OR a 'peace-sign' gesture to pause.
 6. You may change the song by modifying fingerpose.js
+
+
+[![Gesture Recognition](https://img.youtube.com/vi/https://www.youtube.com/watch?v=4ZdoBFKkc10/0.jpg)](https://www.youtube.com/watch?v=https://www.youtube.com/watch?v=4ZdoBFKkc10)
+
+This project was created as a collaboration during Stanford TreeHacks '20.
