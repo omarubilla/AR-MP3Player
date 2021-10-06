@@ -16,5 +16,7 @@ Click image below to watch demo video.
 [![Hand Gesture Recognition](gesture_music_thumbnail.png)](https://www.youtube.com/watch?v=4ZdoBFKkc10)
 
 This project was created as a collaboration during Stanford TreeHacks '20.
+
 Credits: Cooper Collier, Steve Mbouadeu, Min Thu Ta
+
 Devpost Link: https://devpost.com/software/gesture-recognition-for-ar
