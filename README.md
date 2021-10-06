@@ -13,7 +13,7 @@ Our goal is to recognize hand gestures in order to navigate our mp3 player!
 
 Click image below to watch demo video.
 
-[![Hand Gesture Recognition](https://img.youtube.com/vi/4ZdoBFKkc10/0.jpg)](https://www.youtube.com/watch?v=4ZdoBFKkc10)
+[![Hand Gesture Recognition](gesture_music_thumbnail.png)](https://www.youtube.com/watch?v=4ZdoBFKkc10)
 
 This project was created as a collaboration during Stanford TreeHacks '20.
 Credits: Cooper Collier, Steve Mbouadeu, Min Thu Ta
