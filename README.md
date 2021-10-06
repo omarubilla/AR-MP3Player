@@ -1,6 +1,6 @@
 # AR-MP3Player
 
-![Vision](ezgif.com-gif-maker (2).gif)
+![Vision](ezgif.com-gif-maker(2).gif)
 
 Our goal is to recognize hand gestures in order to navigate our mp3 player!
 
